@@ -1,0 +1,9 @@
+name: cron
+os: Debian, Raspbian, Ubuntu
+os_family: Debian
+version: 1.0.0
+release: 1
+minimum_version: 3006
+summary: 'cron formula'
+description: 'Install cron, manage crontab entries and environment variables from pillar, and make sure the service is running.'
+top_level_dir: cron

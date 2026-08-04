@@ -1,0 +1,32 @@
+# Example pillar for the cron formula.
+
+cron:
+  enabled: true
+
+  tasks:
+    nightly-backup:
+      name: /usr/local/bin/backup.sh
+      user: root
+      minute: '0'
+      hour: '2'
+      comment: Nightly backup
+
+    reboot-warmup:
+      name: /usr/local/bin/warm-cache.sh
+      user: root
+      special: '@reboot'
+
+    disabled-during-migration:
+      name: /usr/local/bin/sync-legacy.sh
+      user: root
+      minute: '*/15'
+      commented: true
+
+  env:
+    mailto:
+      name: MAILTO
+      value: ops@example.com
+
+    path:
+      name: PATH
+      value: /usr/local/bin:/usr/bin:/bin

@@ -1,0 +1,11 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+#
+# Scope: Debian 12/13 and Ubuntu 24.04+ only (both grain os_family: Debian).
+---
+cron:
+  pkg: cron
+  service: cron
+  enabled: true
+  tasks: {}
+  env: {}

@@ -1,0 +1,9 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+#
+# Setup variables using grains['os_family'] based logic. This formula only
+# targets os_family: Debian (covers both Debian and Ubuntu) - defaults.yaml
+# already has the right pkg/service names for it, so this is just an
+# extension point for future per-family overrides.
+---
+Debian: {}

@@ -1,0 +1,28 @@
+# -*- coding: utf-8 -*-
+# vim: ft=jinja
+#
+# Scope: Debian 12/13 and Ubuntu 24.04+ only (both grain os_family: Debian).
+# Simplified from the original multi-distro map (osarchmap/osfingermap
+# layers dropped - osarchmap's `arch` key was never actually consumed by
+# any state in this formula, and osfingermap was an unused empty stub).
+
+{#- Get the `tplroot` from `tpldir` #}
+{%- set tplroot = tpldir.split('/')[0] %}
+
+{%- import_yaml tplroot ~ "/defaults.yaml" as defaults %}
+{%- import_yaml tplroot ~ "/osfamilymap.yaml" as osfamilymap %}
+{%- import_yaml tplroot ~ "/osmap.yaml" as osmap %}
+
+{#- merge the osfamilymap #}
+{%- set osfamily_map = salt['grains.filter_by'](osfamilymap, grain='os_family') or {} %}
+{%- do salt['defaults.merge'](defaults['cron'], osfamily_map) %}
+
+{#- merge the osmap #}
+{%- set os_map = salt['grains.filter_by'](osmap, grain='os') or {} %}
+{%- do salt['defaults.merge'](defaults['cron'], os_map) %}
+
+{#- merge in a `cron:lookup` pillar override, then the full `cron` pillar #}
+{%- set lookup = salt['pillar.get']('cron:lookup', default={}, merge=True) %}
+{%- do salt['defaults.merge'](defaults['cron'], lookup) %}
+
+{%- set cron = salt['pillar.get']('cron', default=defaults['cron'], merge=True) %}

@@ -1,0 +1,8 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+#
+# Setup variables using grains['os'] based logic - e.g. if Ubuntu ever
+# needs to diverge from Debian's cron package/service names. Empty for now.
+---
+Debian: {}
+Ubuntu: {}
